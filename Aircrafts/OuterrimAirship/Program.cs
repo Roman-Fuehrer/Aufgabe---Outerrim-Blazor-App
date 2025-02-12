@@ -1,6 +1,6 @@
-using Aircrafts.Components;
-using Aircrafts.Model;
 using Microsoft.EntityFrameworkCore;
+using OuterrimAirship.Components;
+using OuterrimAirship.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +12,6 @@ builder.Services.AddRazorComponents()
 builder.Services.AddDbContextFactory<AircraftContext>(options =>
     options.UseSqlite($"DataSource=./DB/Aircrafts.db"));
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,11 +22,12 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+// Other
 app.UseHttpsRedirection();
-
 app.UseStaticFiles();
 app.UseAntiforgery();
 
+// Blazor
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
