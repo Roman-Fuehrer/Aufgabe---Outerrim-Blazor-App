@@ -1,0 +1,93 @@
+﻿@page "/mercenaries"
+
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <h1 class="text-black-50">Mercenaries</h1>
+    </div>
+    <div class="row d-flex justify-content-center border-2 rounded-2">
+        @if (Mercenaries != null)
+        {
+            @foreach (var mercenary in Mercenaries)
+            {
+                <div class="col-lg-4 card">
+                    <div class="card-header">
+                        <div>@mercenary.FirstName</div>
+                        <div>@mercenary.LastName</div>
+                    </div>
+                    <div class="card-body">
+                        <div>Body Skills: @mercenary.BodySkills</div>
+                        <div>Combat Skills: @mercenary.CombatSkills</div>
+                        <div>
+                            <h3>Crews:</h3>
+                            @if (mercenary.Crews != null)
+                            {
+                                @foreach (var crew in mercenary.Crews)
+                                {
+                                    <div>Joined at:@crew.JoinedAt</div>
+                                }
+                            }
+                        </div>
+                        <div>
+                            <h3>Mercenary Reputations:</h3>
+                            @if (mercenary.MercenaryReputations != null)
+                            {
+                                @foreach (var mercenaryReputation in mercenary.MercenaryReputations)
+                                {
+                                    <div>Reputation Change: @mercenaryReputation.ReputationChange</div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div>Loading...</div>
+        }
+    </div>
+    <div class="row d-flex justify-content-around">
+        <div class="col-2">
+            <button class="btn btn-sm btn-info" type="button" @onclick="Create">Create</button>
+        </div>
+        <div class="col-2">
+            <button class="btn btn-sm btn-info" type="button" @onclick="Read">Read</button>
+        </div>
+        <div class="col-2">
+            <button class="btn btn-sm btn-info" type="button" @onclick="Update">Update</button>
+        </div>
+        <div class="col-2">
+            <button class="btn btn-sm btn-info" type="button" @onclick="Delete">Delete</button>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    public List<Mercenary>? Mercenaries { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Mercenaries = await MercenaryRepositoryAsync.ReadAllAsync();
+    }
+
+    private void Create()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void Read()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void Update()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void Delete()
+    {
+        throw new NotImplementedException();
+    }
+}

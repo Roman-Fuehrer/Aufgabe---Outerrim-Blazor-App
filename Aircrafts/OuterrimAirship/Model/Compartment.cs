@@ -15,10 +15,11 @@ public class Compartment
     #endregion
     
     #region Relations
-    [Required, Column("Aircraft_Id")]
-    public int AircraftId { get; set; }
     
-    public Aircraft? Aircraft { get; set; }
+    [Required, Column("SpacecraftId")]
+    public int SpacecraftId { get; set; }
+    
+    public Spacecraft? Spacecraft { get; set; }
     
     #endregion
     

@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using OuterrimAirship.Components;
 using OuterrimAirship.Model;
+using OuterrimAirship.Repositories.Base;
+using OuterrimAirship.Repositories.Implemented;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,19 @@ builder.Services.AddRazorComponents()
 // Database
 builder.Services.AddDbContextFactory<SpacecraftContext>(options =>
     options.UseSqlite($"DataSource=./DB/Aircrafts.db"));
+
+// Repositories
+builder.Services.AddScoped<IRepositoryAsync<Spacecraft>, SpacecraftRepositoryAsync>();
+builder.Services.AddScoped<IRepositoryAsync<Compartment>, CompartmentRepositoryAsync>();
+builder.Services.AddScoped<IRepositoryAsync<Machinery>, MachineryRepositoryAsync>();
+builder.Services.AddScoped<IRepositoryAsync<Mercenary>, MercenaryRepositoryAsync>();
+builder.Services.AddScoped<IRepositoryAsync<MercenaryReputation>, MercenaryReputationRepositoryAsync>();
+builder.Services.AddScoped<IRepositoryAsync<CrimeSyndicate>, CrimeSyndicateRepositoryAsync>();
+builder.Services.AddScoped<IRepositoryAsync<Crew>, CrewRepositoryAsync>();
+builder.Services.AddScoped<IRepositoryAsync<SpacecraftSpecification>, SpacecraftSpecificationRepositoryAsync>();
+
+// Logging
+builder.Services.AddScoped<Logger<Program>>();
 
 var app = builder.Build();
 
