@@ -61,7 +61,7 @@ public class SpacecraftContext(DbContextOptions options) : DbContext(options)
         // 1...n Compartments - Machinery
         modelBuilder.Entity<Machinery>()
             .HasOne(s => s.Compartments)
-            .WithMany(s => s.Machinery)
+            .WithMany(s => s.Machineries)
             .HasForeignKey(s => s.CompartmentId);
         
         // Machinery Discriminator

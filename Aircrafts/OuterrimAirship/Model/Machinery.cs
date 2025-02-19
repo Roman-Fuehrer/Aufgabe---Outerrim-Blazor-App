@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace OuterrimAirship.Model;
 
@@ -8,23 +9,23 @@ public class Machinery
 {
     #region Properties
     
-    [Column("Machinery_Id"),Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
+    [Column("MachineryId"), Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int Id { get; init; }
 
-    [Required,Column("Lable")]
-    public string Label { get; set; }
+    [Required, Column("Label", TypeName = "varchar(45)")]
+    public required string Label { get; set; }
     
-    [Required, Column("Funktion")]
-    public string Text { get; set; }
+    [Required, Column("Function", TypeName = "varchar(200)")]
+    public required string Function { get; set; }
     
     #endregion
 
     #region Relations
     
-    [Required, Column("Machinery_Id")]
+    [Required, Column("CompartmentId")]
     public int CompartmentId{ get; set; }
     
-    public Compartment Compartments { get; set; }
+    public Compartment? Compartments { get; set; }
 
     #endregion
 }

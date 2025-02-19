@@ -8,9 +8,9 @@ public class Compartment
 {
     #region Properties
 
-        [Column("Compartment_Id")]
+        [Column("CompartmentId")]
         [Key,DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int Id { get; init; }
 
     #endregion
     
@@ -21,7 +21,7 @@ public class Compartment
     
     public Spacecraft? Spacecraft { get; set; }
     
-    public List<Machinery>? Machinery { get; set; }
+    public List<Machinery>? Machineries { get; set; }
     
     #endregion
     
