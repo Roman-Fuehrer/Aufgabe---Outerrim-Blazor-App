@@ -1,6 +1,6 @@
 namespace OuterrimAirship.Model;
 
-public class EnvironmentalSystem
+public class EnvironmentalSystem : Machinery
 {
     
 }

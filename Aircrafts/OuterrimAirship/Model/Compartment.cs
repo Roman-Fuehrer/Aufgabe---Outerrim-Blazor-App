@@ -6,9 +6,23 @@ namespace OuterrimAirship.Model;
 [Table("Compartments")]
 public class Compartment
 {
-    [Column("Compartment_Id")]
-    [Key,DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
+    #region Properties
+
+        [Column("Compartment_Id")]
+        [Key,DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
+    #endregion
     
-    public Machinery Machinery { get; set; }
+    #region Relations
+    [Required, Column("Aircraft_Id")]
+    public int AircraftId { get; set; }
+    
+    public Aircraft? Aircraft { get; set; }
+    
+    #endregion
+    
+    
+    
+    
 }
