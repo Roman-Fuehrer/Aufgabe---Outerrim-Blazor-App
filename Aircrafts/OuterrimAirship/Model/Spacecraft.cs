@@ -32,7 +32,7 @@ public class Spacecraft
     
     public SpacecraftSpecification? SpacecraftSpecification { get; set; }
     
-    
+    public List<Compartment>? Compartments { get; set; }
     public List<Crew>? Crews { get; set; }
 
     #endregion

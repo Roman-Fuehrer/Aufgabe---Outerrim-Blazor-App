@@ -18,6 +18,13 @@ public class Machinery
     public string Text { get; set; }
     
     #endregion
+
+    #region Relations
     
+    [Required, Column("Machinery_Id")]
+    public int CompartmentId{ get; set; }
     
+    public Compartment Compartments { get; set; }
+
+    #endregion
 }

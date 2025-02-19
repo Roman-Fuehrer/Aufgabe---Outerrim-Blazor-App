@@ -24,6 +24,8 @@ public class Compartment
     #endregion
     
     
+    public List<Machinery>? Machinery { get; set; }
     
+    #endregion
     
 }
