@@ -5,5 +5,5 @@ namespace OuterrimAirship.Repositories.Implemented;
 
 public class CompartmentRepositoryAsync : ARepositoryAsync<Compartment>
 {
-    public CompartmentRepositoryAsync(AircraftContext context) : base(context) { }
+    public CompartmentRepositoryAsync(SpacecraftContext context) : base(context) { }
 }

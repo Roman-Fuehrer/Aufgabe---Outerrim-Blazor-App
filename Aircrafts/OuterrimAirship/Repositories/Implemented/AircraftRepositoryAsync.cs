@@ -3,7 +3,7 @@ using OuterrimAirship.Repositories.Base;
 
 namespace OuterrimAirship.Repositories.Implemented;
 
-public class AircraftRepositoryAsync : ARepositoryAsync<Aircraft>
+public class AircraftRepositoryAsync : ARepositoryAsync<Spacecraft>
 {
-    public AircraftRepositoryAsync(AircraftContext context) : base(context) { }
+    public AircraftRepositoryAsync(SpacecraftContext context) : base(context) { }
 }

@@ -6,10 +6,10 @@ namespace OuterrimAirship.Repositories.Base;
 
 public class ARepositoryAsync<TEntity> : IRepositoryAsync<TEntity> where TEntity : class
 {
-    protected readonly AircraftContext Context;
+    protected readonly SpacecraftContext Context;
     protected readonly DbSet<TEntity> Table;
     
-    protected ARepositoryAsync(AircraftContext context) 
+    protected ARepositoryAsync(SpacecraftContext context) 
     {
         Context = context;
         Table = context.Set<TEntity>();

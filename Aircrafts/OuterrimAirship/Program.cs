@@ -9,7 +9,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 // Database
-builder.Services.AddDbContextFactory<AircraftContext>(options =>
+builder.Services.AddDbContextFactory<SpacecraftContext>(options =>
     options.UseSqlite($"DataSource=./DB/Aircrafts.db"));
 
 var app = builder.Build();

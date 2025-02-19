@@ -29,5 +29,7 @@ public class Mercenary
 
     public List<MercenaryReputation>? MercenaryReputations { get; set; }
 
+    public List<Crew>? Crews { get; set; }
+
     #endregion
 }
