@@ -14,8 +14,5 @@ public class AircraftContext : DbContext
     public DbSet<MercenaryReputation> MercenaryReputations { get; set; }
     public DbSet<Machinery> Machineries { get; set; }
     
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        
-    }
+    
 }
