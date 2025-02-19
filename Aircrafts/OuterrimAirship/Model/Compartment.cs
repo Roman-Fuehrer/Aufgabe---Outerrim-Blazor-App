@@ -15,20 +15,13 @@ public class Compartment
     #endregion
     
     #region Relations
-<<<<<<< Updated upstream
     
     [Required, Column("SpacecraftId")]
     public int SpacecraftId { get; set; }
     
     public Spacecraft? Spacecraft { get; set; }
-=======
-    [Required, Column("Spacecraft_Id")]
-    public int SpacecraftId { get; set; }
-    
-    public Spacecraft? Spacecraft { get; set; }
     
     public List<Machinery>? Machinery { get; set; }
->>>>>>> Stashed changes
     
     #endregion
     
