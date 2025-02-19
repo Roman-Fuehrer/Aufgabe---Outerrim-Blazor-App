@@ -4,7 +4,7 @@ namespace OuterrimAirship.Model;
 
 public class SpacecraftContext(DbContextOptions options) : DbContext(options)
 {
-    public DbSet<Spacecraft> Aircrafts { get; set; }
+    public DbSet<Spacecraft> Spacecrafts { get; set; }
     public DbSet<Crew> Crews { get; set; }
     public DbSet<Compartment> Compartments { get; set; }
     public DbSet<CrimeSyndicate> CrimeSyndicates { get; set; }
@@ -51,5 +51,23 @@ public class SpacecraftContext(DbContextOptions options) : DbContext(options)
         // Primary Key for Crews
         modelBuilder.Entity<Crew>()
             .HasKey(c => new {c.MercenaryId, c.SpacecraftId });
+        
+        // 1...n Spacecraft - Compartments
+        modelBuilder.Entity<Compartment>()
+            .HasOne(c => c.Spacecraft)
+            .WithMany(c => c.Compartments)
+            .HasForeignKey(c => c.SpacecraftId);
+        
+        // 1...n Compartments - Machinery
+        modelBuilder.Entity<Machinery>()
+            .HasOne(s => s.Compartments)
+            .WithMany(s => s.Machinery)
+            .HasForeignKey(s => s.CompartmentId);
+        
+        // Machinery Discriminator
+        modelBuilder.Entity<Machinery>().HasDiscriminator<string>("Type")
+            .HasValue<EnergySystem>("EnergySystem")
+            .HasValue<Weapon>("Weapon")
+            .HasValue<EnvironmentalSystem>("EnvironmentalSystem");
     }
 }

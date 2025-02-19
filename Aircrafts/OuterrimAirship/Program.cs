@@ -12,7 +12,7 @@ builder.Services.AddRazorComponents()
 
 // Database
 builder.Services.AddDbContextFactory<SpacecraftContext>(options =>
-    options.UseSqlite($"DataSource=./DB/Aircrafts.db"));
+    options.UseSqlite($"DataSource=./DB/Spacecrafts.db"));
 
 // Repositories
 builder.Services.AddScoped<IRepositoryAsync<Spacecraft>, SpacecraftRepositoryAsync>();

@@ -21,9 +21,8 @@ public class Compartment
     
     public Spacecraft? Spacecraft { get; set; }
     
+    public List<Machinery>? Machinery { get; set; }
+    
     #endregion
-    
-    
-    
     
 }
