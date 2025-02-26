@@ -11,7 +11,7 @@ using OuterrimAirship.Model;
 namespace OuterrimAirship.Migrations
 {
     [DbContext(typeof(SpacecraftContext))]
-    [Migration("20250226074120_init")]
+    [Migration("20250226081148_init")]
     partial class init
     {
         /// <inheritdoc />

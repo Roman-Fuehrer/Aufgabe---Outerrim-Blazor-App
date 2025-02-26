@@ -15,10 +15,26 @@
                         <div>@machinery.Label</div>
                     </div>
                     <div class="card-body">
-                        <div>Funktion: @machinery.Function</div>
+                        <div>Function: @machinery.Function</div>
+                        <div>Mounted in Compartment: @machinery.CompartmentId</div>
                     </div>
                 </div>
             }
+            <h3>Weaponsystems</h3>
+            @foreach (var machinery in MachineriesWeapon)
+            {
+                <div class="col-lg-4 card">
+                    <div class="card-header">
+                        <div>@machinery.Id</div>
+                        <div>@machinery.Label</div>
+                    </div>
+                    <div class="card-body">
+                        <div>Function: @machinery.Function</div>
+                        <div>Mounted in Compartment: @machinery.CompartmentId</div>
+                    </div>
+                </div>
+            }
+            
         }
         else
         {
@@ -44,10 +60,12 @@
 @code {
 
     public List<Machinery>? Machineries { get; set; }
+    public List<Machinery>? MachineriesWeapon { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         Machineries = await MachineryRepositoryAsync.ReadAllAsync();
+        //MachineriesWeapon = Machineries.Where(s => s.Type)
     }
 
     private void Create()
