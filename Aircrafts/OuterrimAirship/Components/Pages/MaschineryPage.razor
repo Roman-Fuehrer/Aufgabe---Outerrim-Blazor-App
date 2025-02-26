@@ -1,0 +1,72 @@
+﻿@page "/machineries"
+
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <h1 class="text-black-50">Machineries</h1>
+    </div>
+    <div class="row d-flex justify-content-center border-2 rounded-2">
+        @if (Machineries != null)
+        {
+            @foreach (var machinery in Machineries)
+            {
+                <div class="col-lg-4 card">
+                    <div class="card-header">
+                        <div>@machinery.Id</div>
+                        <div>@machinery.Label</div>
+                    </div>
+                    <div class="card-body">
+                        <div>Funktion: @machinery.Function</div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div>Loading...</div>
+        }
+    </div>
+    <div class="row d-flex justify-content-around">
+        <div class="col-2">
+            <button class="btn btn-sm btn-info" type="button" @onclick="Create">Create</button>
+        </div>
+        <div class="col-2">
+            <button class="btn btn-sm btn-info" type="button" @onclick="Read">Read</button>
+        </div>
+        <div class="col-2">
+            <button class="btn btn-sm btn-info" type="button" @onclick="Update">Update</button>
+        </div>
+        <div class="col-2">
+            <button class="btn btn-sm btn-info" type="button" @onclick="Delete">Delete</button>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    public List<Machinery>? Machineries { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Machineries = await MachineryRepositoryAsync.ReadAllAsync();
+    }
+
+    private void Create()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void Read()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void Update()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void Delete()
+    {
+        throw new NotImplementedException();
+    }
+}
