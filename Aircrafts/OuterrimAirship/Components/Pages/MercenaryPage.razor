@@ -18,7 +18,7 @@
                         <div>Body Skills: @mercenary.BodySkills</div>
                         <div>Combat Skills: @mercenary.CombatSkills</div>
                         <div>
-                            <h3>Crews:</h3>
+                            <h5>Crews:</h5>
                             @if (mercenary.Crews != null)
                             {
                                 @foreach (var crew in mercenary.Crews)
@@ -28,7 +28,7 @@
                             }
                         </div>
                         <div>
-                            <h3>Mercenary Reputations:</h3>
+                            <h5>Mercenary Reputations:</h5>
                             @if (mercenary.MercenaryReputations != null)
                             {
                                 @foreach (var mercenaryReputation in mercenary.MercenaryReputations)
@@ -48,7 +48,8 @@
     </div>
     <div class="row d-flex justify-content-around">
         <div class="col-2">
-            <button class="btn btn-sm btn-info" type="button" @onclick="Create">Create</button>
+            <button class="btn btn-sm btn-info" type="button" onclick="openCreateModal()"
+                    data-toggle="modal" data-target="#createModal">Create</button>
         </div>
         <div class="col-2">
             <button class="btn btn-sm btn-info" type="button" @onclick="Read">Read</button>
@@ -62,18 +63,90 @@
     </div>
 </div>
 
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createModalLabel">Create Mercenary</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @if (Mercenary != null)
+                {
+                    <EditForm Model="Mercenary" OnValidSubmit="Create" FormName="create">
+                        <DataAnnotationsValidator/>
+                        <ValidationSummary class="text-danger"/>
+                    
+                        <div class="form-floating mb-3">
+                            <InputText @bind-Value="Mercenary.FirstName" 
+                                       id="firstname" class="form-control"
+                                       placeholder="Firstname" FormName="create"/>
+                            <label for="firstname">Firstname:</label>
+                            <ValidationMessage For="() => Mercenary.FirstName"/>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <InputText @bind-Value="Mercenary.LastName"
+                                       id="lastname" class="form-control"
+                                       placeholder="Lastname" FormName="create"/>
+                            <label for="lastname">Lastname:</label>
+                            <ValidationMessage For="() => Mercenary.LastName"/>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <InputNumber @bind-Value="Mercenary.BodySkills"
+                                       id="bodyskills" class="form-control"
+                                       placeholder="Body Skills" FormName="create"/>
+                            <label for="bodyskills">Body Skills:</label>
+                            <ValidationMessage For="() => Mercenary.BodySkills"/>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <InputNumber @bind-Value="Mercenary.CombatSkills"
+                                         id="combatskills" class="form-control"
+                                         placeholder="Combat Skills" FormName="create"/>
+                            <label for="combatskills">Combat Skills:</label>
+                            <ValidationMessage For="() => Mercenary.CombatSkills"/>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </EditForm>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openCreateModal() {
+        $('#createModal').modal('show');
+    }
+
+</script>
+
 @code {
 
+    public Mercenary? Mercenary { get; set; }
+    
     public List<Mercenary>? Mercenaries { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
+        Mercenary = new()
+        {
+            FirstName = "",
+            LastName = ""
+        };
         Mercenaries = await MercenaryRepositoryAsync.ReadAllAsync();
     }
 
     private void Create()
     {
-        throw new NotImplementedException();
+        Logger.LogInformation("Creating Mercenary...");
+        if (Mercenary != null) MercenaryRepositoryAsync.CreateAsync(Mercenary);
     }
 
     private void Read()

@@ -11,11 +11,11 @@ public class Mercenary
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity), Column("Id")]
     public int Id { get; init; }
 
-    [Required, Column("FirstName", TypeName = "varchar(45)")]
-    public required string FirstName { get; set; }
+    [Column("FirstName", TypeName = "varchar(45)")]
+    public string? FirstName { get; set; }
 
-    [Required, Column("LastName", TypeName = "varchar(45)")]
-    public required string LastName { get; set; }
+    [Column("LastName", TypeName = "varchar(45)")]
+    public string? LastName { get; set; }
 
     [Required, Column("BodySkills")]
     public int BodySkills { get; set; }

@@ -131,12 +131,10 @@ namespace OuterrimAirship.Migrations
                         .HasColumnName("CombatSkills");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("varchar(45)")
                         .HasColumnName("FirstName");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("varchar(45)")
                         .HasColumnName("LastName");
 

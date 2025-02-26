@@ -31,8 +31,8 @@ namespace OuterrimAirship.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    FirstName = table.Column<string>(type: "varchar(45)", nullable: false),
-                    LastName = table.Column<string>(type: "varchar(45)", nullable: false),
+                    FirstName = table.Column<string>(type: "varchar(45)", nullable: true),
+                    LastName = table.Column<string>(type: "varchar(45)", nullable: true),
                     BodySkills = table.Column<int>(type: "INTEGER", nullable: false),
                     CombatSkills = table.Column<int>(type: "INTEGER", nullable: false)
                 },

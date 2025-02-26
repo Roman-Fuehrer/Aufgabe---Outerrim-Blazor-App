@@ -11,7 +11,7 @@ using OuterrimAirship.Model;
 namespace OuterrimAirship.Migrations
 {
     [DbContext(typeof(SpacecraftContext))]
-    [Migration("20250219142601_init")]
+    [Migration("20250226074120_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -134,12 +134,10 @@ namespace OuterrimAirship.Migrations
                         .HasColumnName("CombatSkills");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("varchar(45)")
                         .HasColumnName("FirstName");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("varchar(45)")
                         .HasColumnName("LastName");
 
