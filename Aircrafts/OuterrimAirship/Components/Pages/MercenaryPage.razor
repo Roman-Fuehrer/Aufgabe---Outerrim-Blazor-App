@@ -75,7 +75,7 @@
             <div class="modal-body">
                 @if (Mercenary != null)
                 {
-                    <EditForm Model="Mercenary" OnValidSubmit="Create" FormName="create">
+                    <EditForm Model="@Mercenary" OnValidSubmit="Create" FormName="create">
                         <DataAnnotationsValidator/>
                         <ValidationSummary class="text-danger"/>
                     
@@ -135,11 +135,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Mercenary = new()
-        {
-            FirstName = "",
-            LastName = ""
-        };
+        Mercenary = new();
         Mercenaries = await MercenaryRepositoryAsync.ReadAllAsync();
     }
 
@@ -147,6 +143,7 @@
     {
         Logger.LogInformation("Creating Mercenary...");
         if (Mercenary != null) MercenaryRepositoryAsync.CreateAsync(Mercenary);
+        Mercenary = new();
     }
 
     private void Read()

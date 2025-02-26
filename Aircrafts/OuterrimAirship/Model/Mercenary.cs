@@ -17,10 +17,10 @@ public class Mercenary
     [Column("LastName", TypeName = "varchar(45)")]
     public string? LastName { get; set; }
 
-    [Required, Column("BodySkills")]
+    [Column("BodySkills")]
     public int BodySkills { get; set; }
 
-    [Required, Column("CombatSkills")]
+    [Column("CombatSkills")]
     public int CombatSkills { get; set; }
 
     #endregion
