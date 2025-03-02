@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using MudBlazor;
+using MudBlazor.Services;
 using OuterrimAirship.Components;
 using OuterrimAirship.Model;
 using OuterrimAirship.Repositories.Base;
@@ -9,6 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Blazor
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+builder.Services.AddMudServices(config =>
+    config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.BottomCenter);
 
 // Database
 builder.Services.AddDbContextFactory<SpacecraftContext>(options =>
@@ -38,7 +42,6 @@ if (!app.Environment.IsDevelopment())
 }
 
 // Other
-app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();
 
