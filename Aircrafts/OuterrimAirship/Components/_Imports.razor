@@ -10,10 +10,7 @@
 @using OuterrimAirship.Components
 @using OuterrimAirship.Model
 @using OuterrimAirship.Repositories.Base
-@using MudBlazor
-@using MudBlazor.Utilities
 
-@inject IDialogService DialogService
 @inject Logger<Program> Logger
 @inject IRepositoryAsync<Crew> CrewRepositoryAsync
 @inject IRepositoryAsync<Spacecraft> SpacecraftRepositoryAsync
@@ -23,4 +20,3 @@
 @inject IRepositoryAsync<SpacecraftSpecification> SpacecraftSpecificationRepositoryAsync
 @inject IRepositoryAsync<CrimeSyndicate> CrimeSyndicateRepositoryAsync
 @inject IRepositoryAsync<Compartment> CompartmentRepositoryAsync
-@inject ISnackbar Snackbar
