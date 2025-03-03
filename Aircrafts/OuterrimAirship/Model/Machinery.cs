@@ -12,11 +12,11 @@ public class Machinery
     [Column("MachineryId"), Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; init; }
 
-    [Required, Column("Label", TypeName = "varchar(45)")]
-    public required string Label { get; set; }
+    [Column("Label", TypeName = "varchar(45)")]
+    public string Label { get; set; }
     
-    [Required, Column("Function", TypeName = "varchar(200)")]
-    public required string Function { get; set; }
+    [Column("Function", TypeName = "varchar(200)")]
+    public string Function { get; set; }
     
     #endregion
 

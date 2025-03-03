@@ -1,0 +1,52 @@
+﻿<MudDialog>
+    <DialogContent>
+        @if (Machinery != null)
+        {
+            <MudForm Model="Machinery" @bind-IsValid="@_success" @bind-Errors="@_errors">
+                <MudTextField T="string" @bind-Value="@Machinery.Label"
+                              Label="Firstname" Required="true" RequiredError="Firstname is required!" />
+                <MudTextField T="string" @bind-Value="@Machinery.Function"
+                              Label="Lastname" Required="true" RequiredError="Lastname is required!"/>
+            </MudForm>
+        }
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" 
+                   Disabled="@(!_success)" Class="ml-auto"
+                   OnClick="EditMachinery">@Type</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    private IMudDialogInstance? MudDialog { get; set; }
+
+    [Parameter]
+    public Machinery? Machinery { get; set; }
+    
+    [Parameter]
+    public string? Type { get; set; }
+
+    private void Cancel() => MudDialog?.Cancel();
+    
+    bool _success;
+    string[] _errors = [];
+    
+
+    private async Task EditMachinery()
+    {
+        if (Type == "Create")
+        {
+            if (Machinery != null) await MachineryRepositoryAsync.CreateAsync(Machinery);
+            Snackbar.Add("Machinery created!", Severity.Success);
+            MudDialog?.Close(DialogResult.Ok(true));
+        }
+        else
+        {
+            if (Machinery != null) await MachineryRepositoryAsync.UpdateAsync(Machinery);
+            Snackbar.Add("Machinery edited!", Severity.Success);
+            MudDialog?.Close(DialogResult.Ok(true));
+        }
+    }
+}

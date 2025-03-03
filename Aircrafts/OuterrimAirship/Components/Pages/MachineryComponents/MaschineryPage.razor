@@ -1,0 +1,85 @@
+﻿@page "/machineries"
+
+@rendermode InteractiveServer
+
+<MudStack>
+    <MudGrid Class="w-100" Spacing="10" Justify="Justify.Center">
+        @if (Machineries != null)
+        {
+            @foreach (var machinery in Machineries)
+            {
+                <MudItem lg="3">
+                    <MudCard>
+                        <MudCardHeader>
+                            <CardHeaderContent>
+                                <MudText Typo="Typo.h6">@machinery.Label</MudText>
+                            </CardHeaderContent>
+                            <CardHeaderActions>
+                                <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Default"
+                                               OnClick="@(() => EditMachinery(machinery))"/>
+                                <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Default"
+                                               OnClick="@(() => DeleteMachinery(machinery))"/>
+                            </CardHeaderActions>
+                        </MudCardHeader>
+                        <MudCardContent>
+                            <MudText Color="Color.Surface">Function: @machinery.Function</MudText>
+                            <MudText Color="Color.Surface"></MudText>
+                        </MudCardContent>
+                    </MudCard>
+                </MudItem>
+            }
+        }
+    </MudGrid>
+    <MudButton Color="Color.Primary" OnClick="@(() => CreateMachinery(new Machinery()))">Create new Machinery</MudButton>
+</MudStack>
+
+
+@code {
+
+    private List<Machinery>? Machineries { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Machineries = await MachineryRepositoryAsync.ReadAllAsync();
+    }
+
+    private async Task DeleteMachinery(Machinery machinery)
+    {
+        await MachineryRepositoryAsync.DeleteAsync(machinery);
+        Machineries = await MachineryRepositoryAsync.ReadAllAsync();
+    }
+
+    private async Task EditMachinery(Machinery machinery)
+    {
+        var dialog = await DialogService.ShowAsync<DialogEditMachinery>("Edit Machinery", new DialogParameters()
+        {
+            { "Machinery", machinery },
+            { "Type", "Edit"}
+        }, new ()
+        {
+            CloseButton = true,
+            CloseOnEscapeKey = true,
+            FullWidth = true
+        });
+        var result = await dialog.Result;
+
+        if (result is { Canceled: false }) Machineries = await MachineryRepositoryAsync.ReadAllAsync();
+    }
+
+    private async Task CreateMachinery(Machinery machinery)
+    {
+        var dialog = await DialogService.ShowAsync<DialogEditMachinery>("Create Machinery", new DialogParameters()
+        {
+            { "Machinery", machinery },
+            { "Type", "Create"}
+        }, new ()
+        {
+            CloseButton = true,
+            CloseOnEscapeKey = true,
+            FullWidth = true
+        });
+        var result = await dialog.Result;
+
+        if (result is { Canceled: false }) Machineries = await MachineryRepositoryAsync.ReadAllAsync();
+    }
+}
