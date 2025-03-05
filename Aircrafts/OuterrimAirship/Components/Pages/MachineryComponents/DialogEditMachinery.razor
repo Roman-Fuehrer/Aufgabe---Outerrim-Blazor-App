@@ -1,4 +1,6 @@
-﻿<MudDialog>
+﻿@inject ISnackbar Snackbar
+
+<MudDialog>
     <DialogContent>
         @if (Machinery != null)
         {
@@ -32,7 +34,6 @@
     
     bool _success;
     string[] _errors = [];
-    
 
     private async Task EditMachinery()
     {

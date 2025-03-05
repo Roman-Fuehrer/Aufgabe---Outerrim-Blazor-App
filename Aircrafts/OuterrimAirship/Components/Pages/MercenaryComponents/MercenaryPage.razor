@@ -1,163 +1,87 @@
 ﻿@page "/mercenaries"
 
-<div class="container">
-    <div class="row d-flex justify-content-center">
-        <h1 class="text-black-50">Mercenaries</h1>
-    </div>
-    <div class="row d-flex justify-content-center border-2 rounded-2">
+@inject IDialogService DialogService
+
+@rendermode InteractiveServer
+
+<MudStack>
+    <MudGrid Class="w-100" Spacing="10" Justify="Justify.Center">
         @if (Mercenaries != null)
         {
             @foreach (var mercenary in Mercenaries)
             {
-                <div class="col-lg-4 card">
-                    <div class="card-header">
-                        <div>@mercenary.FirstName</div>
-                        <div>@mercenary.LastName</div>
-                    </div>
-                    <div class="card-body">
-                        <div>Body Skills: @mercenary.BodySkills</div>
-                        <div>Combat Skills: @mercenary.CombatSkills</div>
-                        <div>
-                            <h5>Crews:</h5>
-                            @if (mercenary.Crews != null)
-                            {
-                                @foreach (var crew in mercenary.Crews)
-                                {
-                                    <div>Joined at:@crew.JoinedAt</div>
-                                }
-                            }
-                        </div>
-                        <div>
-                            <h5>Mercenary Reputations:</h5>
-                            @if (mercenary.MercenaryReputations != null)
-                            {
-                                @foreach (var mercenaryReputation in mercenary.MercenaryReputations)
-                                {
-                                    <div>Reputation Change: @mercenaryReputation.ReputationChange</div>
-                                }
-                            }
-                        </div>
-                    </div>
-                </div>
+                <MudItem lg="3">
+                    <MudCard>
+                        <MudCardHeader>
+                            <CardHeaderContent>
+                                <MudText Typo="Typo.h6">@mercenary.FirstName @mercenary.LastName</MudText>
+                            </CardHeaderContent>
+                            <CardHeaderActions>
+                                <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Default"
+                                               OnClick="@(() => EditMercenary(mercenary))"/>
+                                <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Default"
+                                               OnClick="@(() => DeleteMercenary(mercenary))"/>
+                            </CardHeaderActions>
+                        </MudCardHeader>
+                        <MudCardContent>
+                            <MudText Color="Color.Surface">Body Skills: @mercenary.BodySkills</MudText>
+                            <MudText Color="Color.Surface">Combat Skills: @mercenary.CombatSkills</MudText>
+                        </MudCardContent>
+                    </MudCard>
+                </MudItem>
             }
         }
-        else
-        {
-            <div>Loading...</div>
-        }
-    </div>
-    <div class="row d-flex justify-content-around">
-        <div class="col-2">
-            <button class="btn btn-sm btn-info" type="button" onclick="openCreateModal()"
-                    data-toggle="modal" data-target="#createModal">Create</button>
-        </div>
-        <div class="col-2">
-            <button class="btn btn-sm btn-info" type="button" @onclick="Read">Read</button>
-        </div>
-        <div class="col-2">
-            <button class="btn btn-sm btn-info" type="button" @onclick="Update">Update</button>
-        </div>
-        <div class="col-2">
-            <button class="btn btn-sm btn-info" type="button" @onclick="Delete">Delete</button>
-        </div>
-    </div>
-</div>
+    </MudGrid>
+    <MudButton Color="Color.Primary" OnClick="@(() => CreateMercenary(new Mercenary()))">Create new Mercenary</MudButton>
+</MudStack>
 
-<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="createModalLabel">Create Mercenary</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                @if (Mercenary != null)
-                {
-                    <EditForm Model="@Mercenary" OnValidSubmit="Create" FormName="create">
-                        <DataAnnotationsValidator/>
-                        <ValidationSummary class="text-danger"/>
-                    
-                        <div class="form-floating mb-3">
-                            <InputText @bind-Value="Mercenary.FirstName" 
-                                       id="firstname" class="form-control"
-                                       placeholder="Firstname" FormName="create"/>
-                            <label for="firstname">Firstname:</label>
-                            <ValidationMessage For="() => Mercenary.FirstName"/>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <InputText @bind-Value="Mercenary.LastName"
-                                       id="lastname" class="form-control"
-                                       placeholder="Lastname" FormName="create"/>
-                            <label for="lastname">Lastname:</label>
-                            <ValidationMessage For="() => Mercenary.LastName"/>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <InputNumber @bind-Value="Mercenary.BodySkills"
-                                       id="bodyskills" class="form-control"
-                                       placeholder="Body Skills" FormName="create"/>
-                            <label for="bodyskills">Body Skills:</label>
-                            <ValidationMessage For="() => Mercenary.BodySkills"/>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <InputNumber @bind-Value="Mercenary.CombatSkills"
-                                         id="combatskills" class="form-control"
-                                         placeholder="Combat Skills" FormName="create"/>
-                            <label for="combatskills">Combat Skills:</label>
-                            <ValidationMessage For="() => Mercenary.CombatSkills"/>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary">Create</button>
-                    </EditForm>
-                }
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    function openCreateModal() {
-        $('#createModal').modal('show');
-    }
-
-</script>
 
 @code {
 
-    public Mercenary? Mercenary { get; set; }
-    
-    public List<Mercenary>? Mercenaries { get; set; }
+    private List<Mercenary>? Mercenaries { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        Mercenary = new();
         Mercenaries = await MercenaryRepositoryAsync.ReadAllAsync();
     }
 
-    private void Create()
+    private async Task DeleteMercenary(Mercenary mercenary)
     {
-        Logger.LogInformation("Creating Mercenary...");
-        if (Mercenary != null) MercenaryRepositoryAsync.CreateAsync(Mercenary);
-        Mercenary = new();
+        await MercenaryRepositoryAsync.DeleteAsync(mercenary);
+        Mercenaries = await MercenaryRepositoryAsync.ReadAllAsync();
     }
 
-    private void Read()
+    private async Task EditMercenary(Mercenary mercenary)
     {
-        throw new NotImplementedException();
+        var dialog = await DialogService.ShowAsync<DialogEditMercenary>("Edit Mercenary", new DialogParameters()
+        {
+            { "Mercenary", mercenary },
+            { "Type", "Edit"}
+        }, new ()
+        {
+            CloseButton = true,
+            CloseOnEscapeKey = true,
+            FullWidth = true
+        });
+        var result = await dialog.Result;
+
+        if (result is { Canceled: false }) Mercenaries = await MercenaryRepositoryAsync.ReadAllAsync();
     }
 
-    private void Update()
+    private async Task CreateMercenary(Mercenary mercenary)
     {
-        throw new NotImplementedException();
-    }
+        var dialog = await DialogService.ShowAsync<DialogEditMercenary>("Create Mercenary", new DialogParameters()
+        {
+            { "Mercenary", mercenary },
+            { "Type", "Create"}
+        }, new ()
+        {
+            CloseButton = true,
+            CloseOnEscapeKey = true,
+            FullWidth = true
+        });
+        var result = await dialog.Result;
 
-    private void Delete()
-    {
-        throw new NotImplementedException();
+        if (result is { Canceled: false }) Mercenaries = await MercenaryRepositoryAsync.ReadAllAsync();
     }
 }
