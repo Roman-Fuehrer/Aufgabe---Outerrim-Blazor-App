@@ -18,6 +18,8 @@ public class Machinery
     [Column("Function", TypeName = "varchar(200)")]
     public string Function { get; set; }
     
+    public string Type { get; set; }
+    
     #endregion
 
     #region Relations

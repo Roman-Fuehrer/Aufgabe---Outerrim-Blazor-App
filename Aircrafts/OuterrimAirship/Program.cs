@@ -27,6 +27,7 @@ builder.Services.AddScoped<IRepositoryAsync<MercenaryReputation>, MercenaryReput
 builder.Services.AddScoped<IRepositoryAsync<CrimeSyndicate>, CrimeSyndicateRepositoryAsync>();
 builder.Services.AddScoped<IRepositoryAsync<Crew>, CrewRepositoryAsync>();
 builder.Services.AddScoped<IRepositoryAsync<SpacecraftSpecification>, SpacecraftSpecificationRepositoryAsync>();
+builder.Services.AddScoped<MachineryRepositoryAsync>();
 
 // Logging
 builder.Services.AddScoped<Logger<Program>>();

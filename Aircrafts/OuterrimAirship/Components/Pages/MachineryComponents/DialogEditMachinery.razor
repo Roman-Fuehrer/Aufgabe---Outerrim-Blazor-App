@@ -1,4 +1,5 @@
-﻿@inject ISnackbar Snackbar
+﻿@using OuterrimAirship.Repositories.Implemented
+@inject ISnackbar Snackbar
 
 <MudDialog>
     <DialogContent>
@@ -6,9 +7,24 @@
         {
             <MudForm Model="Machinery" @bind-IsValid="@_success" @bind-Errors="@_errors">
                 <MudTextField T="string" @bind-Value="@Machinery.Label"
-                              Label="Firstname" Required="true" RequiredError="Firstname is required!" />
+                              Label="Lable" Required="true" RequiredError="Lable is required!" />
                 <MudTextField T="string" @bind-Value="@Machinery.Function"
-                              Label="Lastname" Required="true" RequiredError="Lastname is required!"/>
+                              Label="Funktion" Required="true" RequiredError="Funktion is required!"/>
+                <MudSelect T="string" @bind-Value="@Machinery.Type"
+                           Label="Type" Required="true" RequiredError="Type is required!">
+                    @foreach (var state in types)
+                    {
+                        <MudSelectItem Value="state">@state</MudSelectItem>
+                    }
+                </MudSelect>
+                <MudSelect T="int" @bind-Value="@Machinery.CompartmentId"
+                           Label="Compartment id" Required="true" RequiredError="Compartment ID is required!">
+                    @foreach (var item in _compartment)
+                    {
+                        <MudSelectItem Value="item">@item</MudSelectItem>
+                    }
+                </MudSelect>
+                
             </MudForm>
         }
     </DialogContent>
@@ -29,11 +45,30 @@
     
     [Parameter]
     public string? Type { get; set; }
-
+    
+    [Parameter]
+    public IEnumerable<int> CompartmentList
+    {
+        get => _compartment;
+        set => _compartment = new List<int>(value);
+    }
+    
+    public List<int> _compartment { get; private set; } = new List<int>();
+    
     private void Cancel() => MudDialog?.Cancel();
+    
+    private List<string> types = new List<string>()
+    {
+        "EnergySystem",
+        "Weapon",
+        "EnvironmentalSystem"
+    };
+
     
     bool _success;
     string[] _errors = [];
+    
+    
 
     private async Task EditMachinery()
     {
