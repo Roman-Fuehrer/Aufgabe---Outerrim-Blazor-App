@@ -12,7 +12,7 @@ public class Spacecraft
     public int Id { get; init; }
 
     [Required, Column("Name", TypeName = "varchar(200)")]
-    public required string Name { get; set; }
+    public string Name { get; set; }
 
     [Required, Column("Fuel")]
     public int Fuel { get; set; }
