@@ -21,4 +21,6 @@ public interface IRepositoryAsync<TEntity> where TEntity : class
     Task<List<TEntity>> ReadAllAsync();
 
     Task DeleteAsync(TEntity t);
+
+    Task<List<TEntity>> GetWeaponsAsync();
 }

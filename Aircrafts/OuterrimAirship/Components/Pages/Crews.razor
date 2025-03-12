@@ -1,8 +1,8 @@
 ﻿@page "/crew"
 @using OuterrimAirship.Repositories.Implemented
-@inject CrewRepositoryAsync AircraftCrewRepository
-@inject SpacecraftRepositoryAsync ARepositoryAsync
-@inject MercenaryRepositoryAsync MercenaryRepository
+@inject IRepositoryAsync<Crew> AircraftCrewRepository
+@inject IRepositoryAsync<Spacecraft> ARepositoryAsync
+@inject IRepositoryAsync<Mercenary> MercenaryRepository
 @inject NavigationManager Navigation
 @rendermode InteractiveServer
 

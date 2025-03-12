@@ -93,11 +93,11 @@ else
             Console.WriteLine($"Ignoring exception while updating aircraft crew: {ex.Message}");
         }
 
-        Navigation.NavigateTo("/aircraft-crews");
+        Navigation.NavigateTo("/crew");
     }
 
     private void CancelEdit()
     {
-        Navigation.NavigateTo("/aircraft-crews");
+        Navigation.NavigateTo("/crew");
     }
 }

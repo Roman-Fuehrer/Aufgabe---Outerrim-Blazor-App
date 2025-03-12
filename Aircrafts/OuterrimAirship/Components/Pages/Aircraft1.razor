@@ -1,4 +1,5 @@
-﻿@page "/Spacecraft"
+﻿@page "/Spacecraft1"
+@using OuterrimAirship.Repositories.Implemented
 @inject IRepositoryAsync<Spacecraft> AircraftRepo
 @inject IRepositoryAsync<SpacecraftSpecification> SpezRepo
 @rendermode InteractiveServer
@@ -34,7 +35,7 @@
 
 <div class="container mt-4">
     <h3>Add Aircraft</h3>
-    <EditForm Model="NewAircraft" OnValidSubmit="CreateAircraft">
+    <EditForm Model="@NewAircraft" OnValidSubmit="CreateAircraft">
         <DataAnnotationsValidator />
         <ValidationSummary class="alert alert-danger" />
         <div class="mb-3">
@@ -115,6 +116,7 @@
     {
         await LoadAircrafts();
         await LoadSpecifications();
+        NewAircraft = new Spacecraft();
     }
 
     private async Task LoadAircrafts()

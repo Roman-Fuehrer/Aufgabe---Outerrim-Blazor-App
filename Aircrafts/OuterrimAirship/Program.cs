@@ -21,13 +21,13 @@ builder.Services.AddDbContextFactory<SpacecraftContext>(options =>
 // Repositories
 builder.Services.AddScoped<IRepositoryAsync<Spacecraft>, SpacecraftRepositoryAsync>();
 builder.Services.AddScoped<IRepositoryAsync<Compartment>, CompartmentRepositoryAsync>();
-builder.Services.AddScoped<IRepositoryAsync<Machinery>, MachineryRepositoryAsync>();
-builder.Services.AddScoped<IRepositoryAsync<Mercenary>, MercenaryRepositoryAsync>();
 builder.Services.AddScoped<IRepositoryAsync<MercenaryReputation>, MercenaryReputationRepositoryAsync>();
+builder.Services.AddScoped<IRepositoryAsync<Mercenary>, MercenaryRepositoryAsync>();
+builder.Services.AddScoped<IRepositoryAsync<Machinery>, MachineryRepositoryAsync>();
 builder.Services.AddScoped<IRepositoryAsync<CrimeSyndicate>, CrimeSyndicateRepositoryAsync>();
 builder.Services.AddScoped<IRepositoryAsync<Crew>, CrewRepositoryAsync>();
 builder.Services.AddScoped<IRepositoryAsync<SpacecraftSpecification>, SpacecraftSpecificationRepositoryAsync>();
-builder.Services.AddScoped<MachineryRepositoryAsync>();
+
 
 
 // Logging

@@ -54,4 +54,9 @@ public class ARepositoryAsync<TEntity> : IRepositoryAsync<TEntity> where TEntity
         Table.Remove(t);
         await Context.SaveChangesAsync();
     }
+
+    public Task<List<TEntity>> GetWeaponsAsync()
+    {
+        return Table.ToListAsync();
+    }
 }

@@ -14,6 +14,13 @@ public class SpacecraftContext(DbContextOptions options) : DbContext(options)
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Spacecraft>()
+            .Navigation(a => a.SpacecraftSpecification).AutoInclude();
+        modelBuilder.Entity<Spacecraft>()
+            .Navigation(a => a.Compartments).AutoInclude();
+        modelBuilder.Entity<Compartment>()
+            .Navigation(c => c.Machineries).AutoInclude();
+        
         // 1...n CrimeSyndicate - MercenaryReputations
         modelBuilder.Entity<MercenaryReputation>()
             .HasOne(m => m.CrimeSyndicate)

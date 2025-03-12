@@ -1,6 +1,7 @@
 ﻿@page "/machineries"
 @using OuterrimAirship.Repositories.Implemented
-@inject MachineryRepositoryAsync MachineryRepositoryAsync
+@inject IRepositoryAsync<Machinery> MachineryRepositoryAsync
+@inject IRepositoryAsync<Compartment> CompartmentRepositoryAsync
 @inject IDialogService DialogService
 
 @rendermode InteractiveServer

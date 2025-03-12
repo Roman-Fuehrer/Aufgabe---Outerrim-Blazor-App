@@ -1,5 +1,7 @@
 ﻿@inject ISnackbar Snackbar
 
+@inject IRepositoryAsync<Mercenary> MercenaryRepositoryAsync
+
 <MudDialog>
     <DialogContent>
         @if (Mercenary != null)

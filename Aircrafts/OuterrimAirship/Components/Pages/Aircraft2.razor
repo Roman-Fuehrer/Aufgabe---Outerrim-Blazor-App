@@ -1,0 +1,113 @@
+﻿@page "/Spacecraft2"
+@inject IRepositoryAsync<Spacecraft> Repository
+@rendermode InteractiveServer
+
+<h3>Aircrafts</h3>
+
+@foreach (var aircraft in AircraftsList)
+{
+    <div class="aircraft-card">
+        <h4>@aircraft.Id : @aircraft.Name</h4>
+        <p><strong>Fuel:</strong> @aircraft.Fuel L</p>
+        <p><strong>Speed:</strong> @aircraft.Speed km/h</p>
+        <p><strong>Altitude:</strong> @aircraft.Altitude m</p>
+
+        <button @onclick="() => OpenEditModal(aircraft)">Edit</button>
+        <button @onclick="() => DeleteAircraft(aircraft.Id)" class="delete-btn">Delete</button>
+
+        <details>
+            <summary>📑 Specification Code: @aircraft.SpacecraftSpecification!.SpecificationCode</summary>
+            <ul>
+                <li>Structure: @aircraft.SpacecraftSpecification.Structure</li>
+                <li>Fuel Tank Capacity: @aircraft.SpacecraftSpecification.FuelTankCapacity L</li>
+                <li>Min Speed: @aircraft.SpacecraftSpecification.MinSpeed km/h</li>
+                <li>Max Speed: @aircraft.SpacecraftSpecification.MaxSpeed km/h</li>
+                <li>Max Altitude: @aircraft.SpacecraftSpecification.MaxAltitude m</li>
+            </ul>
+        </details>
+
+        <details>
+            <summary>⚙️ Machinery (Weapons, Energy, Env. Systems)</summary>
+            <ul>
+                @foreach (var compartment in aircraft.Compartments!)
+                {
+                    @foreach(var machinery in compartment.Machineries!)
+                    {
+                        <li><strong>@machinery.Label:</strong> @machinery.Function</li>
+                    }
+                }
+            </ul>
+        </details>
+    </div>
+}
+
+@if (_isEditModalOpen)
+{
+    <div class="modal">
+        <div class="modal-content">
+            <h3>Edit Aircraft</h3>
+            <label>Name:</label>
+            <input type="text" @bind="_selectedAircraft.Name" />
+
+            <label>Fuel:</label>
+            <input type="number" @bind="_selectedAircraft.Fuel" />
+
+            <label>Speed:</label>
+            <input type="number" @bind="_selectedAircraft.Speed" />
+
+            <label>Altitude:</label>
+            <input type="number" @bind="_selectedAircraft.Altitude" />
+
+            <label>Specification Code:</label>
+            <input type="text" @bind="_selectedAircraft.SpacecraftSpecification!.SpecificationCode" />
+
+            <button @onclick="SaveAircraftChanges">Save</button>
+            <button class="close-btn" @onclick="CloseEditModal">Close</button>
+        </div>
+    </div>
+}
+
+@code {
+    private List<Spacecraft> AircraftsList { get; set; } = new();
+    private bool _isEditModalOpen;
+    private Spacecraft _selectedAircraft = new()
+    {
+        Name = "",
+    };
+
+    protected override async Task OnInitializedAsync()
+    {
+        AircraftsList = await Repository.ReadAllAsync();
+    }
+
+    private void OpenEditModal(Spacecraft aircraft)
+    {
+        _selectedAircraft = aircraft;
+
+        _isEditModalOpen = true;
+    }
+
+    private void CloseEditModal()
+    {
+        _isEditModalOpen = false;
+    }
+
+    private async Task SaveAircraftChanges()
+    {
+        await Repository.UpdateAsync(_selectedAircraft);
+
+        var index = AircraftsList.FindIndex(a => a.Id == _selectedAircraft.Id);
+        if (index != -1)
+        {
+            AircraftsList[index] = _selectedAircraft;
+        }
+
+        CloseEditModal();
+    }
+
+    private async Task DeleteAircraft(int aircraftId)
+    {
+        await Repository.DeleteAsync(AircraftsList.First(s => s.Id == aircraftId));
+        AircraftsList.RemoveAll(a => a.Id == aircraftId);
+    }
+}
